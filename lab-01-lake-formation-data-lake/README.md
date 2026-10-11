@@ -18,7 +18,7 @@ AnyCompany, a cloud marketing organization, wanted to pilot a data lake. In this
 
 <details>
 
-![Lab 1 Architecture](/building-data-lakes-on-aws/screenshots/lab1/environment-overview.png)
+![Lab 1 Architecture](/screenshots/lab1/environment-overview.png)
 
 </details>
 
@@ -49,14 +49,14 @@ Reviewed the S3 bucket layout: a `data/` folder holding the dataset and a `resul
 <details>
 <summary>S3 structure</summary>
 
-![S3 structure](/building-data-lakes-on-aws/screenshots/lab1/aws_s3_folders.png)
+![S3 structure](/screenshots/lab1/aws_s3_folders.png)
 
 </details>
 
 <details>
 <summary>S3 structure</summary>
 
-![S3 structure](/building-data-lakes-on-aws/screenshots/lab1/aws_s3_data.png)
+![S3 structure](/screenshots/lab1/aws_s3_data.png)
 
 </details>
 
@@ -68,14 +68,14 @@ Reviewed the S3 bucket layout: a `data/` folder holding the dataset and a `resul
 <details>
 <summary>Registered location</summary>
 
-![Registered location](/building-data-lakes-on-aws/screenshots/lab1/lake-formation-location.png)
+![Registered location](/screenshots/lab1/lake-formation-location.png)
 
 </details>
 
 <details>
 <summary>Database</summary>
 
-![Database](/building-data-lakes-on-aws/screenshots/lab1/aws_lakehouse_formation_db.png)
+![Database](/screenshots/lab1/aws_lakehouse_formation_db.png)
 
 </details>
 
@@ -87,20 +87,20 @@ Reviewed the S3 bucket layout: a `data/` folder holding the dataset and a `resul
 <details>
 <summary>Crawler config</summary>
 
-![Crawler config](/building-data-lakes-on-aws/screenshots/lab1/crawler-config.png)
+![Crawler config](/screenshots/lab1/crawler-config.png)
 
 </details>
 
 <details>
 <summary>Crawler run</summary>
 
-![Crawler run](/building-data-lakes-on-aws/screenshots/lab1/crawler-ready.png)
+![Crawler run](/screenshots/lab1/crawler-ready.png)
 
 </details>
 <details>
 <summary>Table schema</summary>
 
-![Table schema](/building-data-lakes-on-aws/screenshots/lab1/Table_schema.png)
+![Table schema](/screenshots/lab1/Table_schema.png)
 
 </details>
 
@@ -117,14 +117,14 @@ SELECT COUNT(*) AS action_movies FROM "data" WHERE genres_0 = 'Action';
 <details>
 <summary>Athena sample</summary>
 
-![Athena sample](/building-data-lakes-on-aws/screenshots/lab1/sample.png)
+![Athena sample](/screenshots/lab1/sample.png)
 
 </details>
 
 <details>
 <summary>Athena count</summary>
 
-![Athena count](/building-data-lakes-on-aws/screenshots/lab1/count2.png)
+![Athena count](/screenshots/lab1/count2.png)
 
 </details>
 
@@ -137,14 +137,14 @@ Built a Visual ETL job (`ParquetConversion`):
 <details>
 <summary>Visual job</summary>
 
-![Visual job](/building-data-lakes-on-aws/screenshots/lab1/parquet_conv.png)
+![Visual job](/screenshots/lab1/parquet_conv.png)
 
 </details>
 
 <details>
 <summary>Job succeeded</summary>
 
-![Job succeeded](/building-data-lakes-on-aws/screenshots/lab1/job_run.png)
+![Job succeeded](/screenshots/lab1/job_run.png)
 
 </details>
 
@@ -154,7 +154,7 @@ Re-ran the crawler so it discovered the new Parquet folder. The catalog now cont
 <details>
 <summary>Tables list</summary>
 
-![Tables list](/building-data-lakes-on-aws/screenshots/lab1/tables_list.png)
+![Tables list](/screenshots/lab1/tables_list.png)
 
 </details>
 
@@ -178,14 +178,14 @@ SELECT COUNT(*) AS action_movies FROM "movies_parquet" WHERE genres_0 = 'Action'
 <details>
 <summary>Performance comparison</summary>
 
-![Performance comparison](/building-data-lakes-on-aws/screenshots/lab1/count3.png)
+![Performance comparison](/screenshots/lab1/count3.png)
 
 </details>
 
 <details>
 <summary>Performance comparison</summary>
 
-![Performance comparison](/building-data-lakes-on-aws/screenshots/lab1/count4.png)
+![Performance comparison](/screenshots/lab1/count4.png)
 </details>
 
 
