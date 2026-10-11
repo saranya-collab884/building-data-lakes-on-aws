@@ -16,7 +16,11 @@ AnyCompany, a cloud marketing organization, wanted to pilot a data lake. In this
 
 ## Architecture
 
+<details>
+
 ![Lab 1 Architecture](/building-data-lakes-on-aws/screenshots/lab1/environment-overview.png)
+
+</details>
 
 ## Services Used
 
@@ -42,25 +46,63 @@ A single CSV file, `movies.csv`, containing movie data from 1920 to 2018.
 ### 1. Explored the environment
 Reviewed the S3 bucket layout: a `data/` folder holding the dataset and a `results/` folder for Athena query output.
 
+<details>
+<summary>S3 structure</summary>
+
 ![S3 structure](/building-data-lakes-on-aws/screenshots/lab1/aws_s3_folders.png)
+
+</details>
+
+<details>
+<summary>S3 structure</summary>
+
 ![S3 structure](/building-data-lakes-on-aws/screenshots/lab1/aws_s3_data.png)
+
+</details>
+
 
 ### 2. Set up Lake Formation
 - **Registered the S3 `data/` location** as a data lake location using a dedicated service role, so Lake Formation can manage access to it.
 - **Granted data location permission** to the Glue service role so the crawler and job could use the location.
 - **Created the `movies-db` database** in the Glue Data Catalog.
+<details>
+<summary>Registered location</summary>
 
 ![Registered location](/building-data-lakes-on-aws/screenshots/lab1/lake-formation-location.png)
+
+</details>
+
+<details>
+<summary>Database</summary>
+
 ![Database](/building-data-lakes-on-aws/screenshots/lab1/aws_lakehouse_formation_db.png)
+
+</details>
 
 ### 3. Crawled the data with AWS Glue
 - Created a crawler (`movies-table`) pointing at the S3 data location, targeting `movies-db`.
 - Ran it and waited for the state to return to **Ready**.
 - Verified the generated table schema against the original CSV columns.
 
+<details>
+<summary>Crawler config</summary>
+
 ![Crawler config](/building-data-lakes-on-aws/screenshots/lab1/crawler-config.png)
+
+</details>
+
+<details>
+<summary>Crawler run</summary>
+
 ![Crawler run](/building-data-lakes-on-aws/screenshots/lab1/crawler-ready.png)
+
+</details>
+<details>
+<summary>Table schema</summary>
+
 ![Table schema](/building-data-lakes-on-aws/screenshots/lab1/Table_schema.png)
+
+</details>
 
 ### 4. Queried the data with Athena
 Granted my user `SELECT` permission on the table through Lake Formation, then ran queries in Athena.
@@ -72,9 +114,19 @@ SELECT COUNT(*) AS action_movies FROM "data" WHERE genres_0 = 'Action';
 ```
 
 **Result:** 1002 movies with `Action` as the primary genre, matching the expected value.
+<details>
+<summary>Athena sample</summary>
 
 ![Athena sample](/building-data-lakes-on-aws/screenshots/lab1/sample.png)
+
+</details>
+
+<details>
+<summary>Athena count</summary>
+
 ![Athena count](/building-data-lakes-on-aws/screenshots/lab1/count2.png)
+
+</details>
 
 ### 5. Transformed CSV to Parquet with a Glue job
 Built a Visual ETL job (`ParquetConversion`):
@@ -82,15 +134,30 @@ Built a Visual ETL job (`ParquetConversion`):
 - **Target:** Amazon S3, Parquet format, uncompressed
 - **Role:** Glue service role
 
-
+<details>
+<summary>Visual job</summary>
 
 ![Visual job](/building-data-lakes-on-aws/screenshots/lab1/parquet_conv.png)
+
+</details>
+
+<details>
+<summary>Job succeeded</summary>
+
 ![Job succeeded](/building-data-lakes-on-aws/screenshots/lab1/job_run.png)
+
+</details>
 
 ### 6. Cataloged the Parquet output
 Re-ran the crawler so it discovered the new Parquet folder. The catalog now contained three tables: `data`, `movies_csv`, and `movies_parquet`.
 
+<details>
+<summary>Tables list</summary>
+
 ![Tables list](/building-data-lakes-on-aws/screenshots/lab1/tables_list.png)
+
+</details>
+
 
 ### 7. Compared CSV and Parquet in Athena
 
@@ -108,8 +175,20 @@ SELECT COUNT(*) AS action_movies FROM "movies_parquet" WHERE genres_0 = 'Action'
 | Data scanned |486.27 KB| 6.24 KB |
 | Result count | 1002 | 1002 |
 
+<details>
+<summary>Performance comparison</summary>
+
 ![Performance comparison](/building-data-lakes-on-aws/screenshots/lab1/count3.png)
+
+</details>
+
+<details>
+<summary>Performance comparison</summary>
+
 ![Performance comparison](/building-data-lakes-on-aws/screenshots/lab1/count4.png)
+</details>
+
+
 
 **Takeaway:** Both queries returned the same answer, but Parquet scanned far less data. Athena charges by data scanned, so on large datasets this translates directly into lower cost and faster queries.
 
